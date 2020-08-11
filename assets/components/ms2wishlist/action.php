@@ -1,6 +1,6 @@
 <?php
 
-if (empty($_REQUEST['ms2_wishlist'])) {
+if (empty($_REQUEST['ms2wishlist_action'])) {
     die('Access denied');
 }
 
