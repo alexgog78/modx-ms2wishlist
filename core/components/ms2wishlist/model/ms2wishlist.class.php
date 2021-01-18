@@ -1,26 +1,49 @@
 <?php
 
-class ms2Wishlist
+$this->loadClass('abstractModule', MODX_CORE_PATH . 'components/abstractmodule/model/', true, true);
+
+class ms2Wishlist extends abstractModule
 {
-    const REQUEST_ACTION_KEY = 'ms2wishlist_action';
+    const PKG_VERSION = '1.1.0';
+    const PKG_RELEASE = 'beta';
+    const PKG_NAMESPACE = 'ms2wishlist';
+
+
+    /** @var ms2WishlistHandler */
+    public $handler;
+
+    /**
+     * ms2Wishlist constructor.
+     *
+     * @param modX $modx
+     * @param array $config
+     */
+    public function __construct(modX $modx, array $config = [])
+    {
+        parent::__construct($modx, $config);
+        $handlerClass = $this->modx->loadClass('ms2WishlistHandler', __DIR__ . '/', true, true);
+        $this->handler = new $handlerClass($this);
+    }
+
+    //const REQUEST_ACTION_KEY = 'ms2wishlist_action';
 
     /** @var modX */
-    public $modx;
+    //public $modx;
 
     /** @var array */
-    public $config = [];
+    //public $config = [];
 
     /** @var string|null */
-    public $namespace = 'ms2wishlist';
+    //public $namespace = 'ms2wishlist';
 
-    public $recordsList = [];
+    //public $recordsList = [];
 
     /**
      * ms2Wishlist constructor.
      * @param modX $modx
      * @param array $config
      */
-    public function __construct(modX $modx, array $config = [])
+    /*public function __construct(modX $modx, array $config = [])
     {
         $this->modx = $modx;
         $this->setConfig($config);
@@ -30,9 +53,9 @@ class ms2Wishlist
         if (empty($this->recordsList) || !is_array($this->recordsList)) {
             $this->recordsList = [];
         }
-    }
+    }*/
 
-    public function loadFrontendAssets()
+    /*public function loadFrontendAssets()
     {
         $configJs = $this->modx->toJSON([
             'actionUrl' => $this->config['actionUrl'],
@@ -47,7 +70,7 @@ class ms2Wishlist
         if ($js = trim($this->modx->getOption($this->namespace . '_frontend_js'))) {
             $this->modx->regClientScript(str_replace($config['placeholder'], $config['value'], $js));
         }
-    }
+    }*/
 
     public function handleRequest(string $action, $data = [])
     {
@@ -117,7 +140,7 @@ class ms2Wishlist
     /**
      * @param array $config
      */
-    protected function setConfig($config = [])
+    /*protected function setConfig($config = [])
     {
         $corePath = $this->modx->getOption($this->namespace . '.core_path', $config, MODX_CORE_PATH . 'components/' . $this->namespace . '/');
         $assetsPath = $this->modx->getOption($this->namespace . '.assets_path', $config, MODX_ASSETS_PATH . 'components/' . $this->namespace . '/');
@@ -136,9 +159,9 @@ class ms2Wishlist
             'actionUrl' => $assetsUrl . 'action.php',
         ];
         $this->config = array_merge($moduleConfig, $config);
-    }
+    }*/
 
-    private function getConfigPlaceholders()
+    /*private function getConfigPlaceholders()
     {
         $result = [
             'placeholder' => [],
@@ -153,7 +176,7 @@ class ms2Wishlist
             }
         }
         return $result;
-    }
+    }*/
 
     public function success($message = '', $data = [])
     {
