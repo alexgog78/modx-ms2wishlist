@@ -5,6 +5,9 @@
  */
 class ms2WishlistEventOnHandleRequest extends abstractModuleEvent
 {
+    /** @var bool */
+    public static $useMgrContext = false;
+
     /** @var string */
     private $actionKey;
 
@@ -23,9 +26,8 @@ class ms2WishlistEventOnHandleRequest extends abstractModuleEvent
     public function __construct(abstractModule $service, $scriptProperties = [])
     {
         parent::__construct($service, $scriptProperties);
-        $this->actionKey = $this->service->handler::REQUEST_ACTION_KEY;
+        $this->actionKey = $this->service::PKG_NAMESPACE . '_action';
         $this->actionValue = $_REQUEST[$this->actionKey];
-        unset($_REQUEST[$this->actionKey]);
         $this->requestData = $_REQUEST;
     }
 
@@ -35,7 +37,6 @@ class ms2WishlistEventOnHandleRequest extends abstractModuleEvent
         if (empty($this->actionValue) || !$isAjax) {
             return;
         }
-        $this->service->log([$this->actionValue, $this->requestData]);
         $response = $this->service->handler->handleRequest($this->actionValue, $this->requestData);
         @session_write_close();
         exit($this->modx->toJSON($response));

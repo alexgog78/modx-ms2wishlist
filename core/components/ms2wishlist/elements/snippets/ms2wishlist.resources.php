@@ -3,6 +3,8 @@
 /**
  * @var modX $modx
  * @var array $scriptProperties
+ * @var string $snippet
+ * @var string $emptyTpl
  */
 
 /** @var ms2Wishlist $ms2Wishlist */
@@ -10,10 +12,26 @@ $ms2Wishlist = $modx->getService('ms2wishlist', 'ms2Wishlist', MODX_CORE_PATH . 
 if (!($ms2Wishlist instanceof ms2Wishlist)) {
     exit('Could not load ms2Wishlist');
 }
-
 $ms2Wishlist->loadWebDefaultCssJs();
 
+/** @var pdoFetch $pdoFetch */
+if (!$modx->loadClass('pdofetch', MODX_CORE_PATH . 'components/pdotools/model/pdotools/', false, true)) {
+    return false;
+}
+$pdoFetch = new pdoFetch($modx, $scriptProperties);
 
-$output = '';
+$resources = $ms2Wishlist->handler->get();
+if (empty($resources)) {
+    return $pdoFetch->getChunk($emptyTpl);
+}
 
+$scriptProperties = array_merge($scriptProperties, [
+    'parents' => 0,
+    'resources' => implode(',', $resources),
+]);
+echo '<pre class="code">';
+print_r($scriptProperties);
+echo '</pre>';
+$modx->setPlaceholder('ms2wishlist_count', $ms2Wishlist->handler->getTotal());
+$output = $pdoFetch->runSnippet($snippet, $scriptProperties);
 return $output;

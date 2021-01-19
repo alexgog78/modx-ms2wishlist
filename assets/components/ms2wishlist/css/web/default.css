@@ -1,0 +1,19 @@
+.ms2wishlist_link .empty,
+.ms2wishlist_link.full .not_empty {
+    display: block;
+}
+
+.ms2wishlist_link .not_empty,
+.ms2wishlist_link.full .empty {
+    display: none;
+}
+
+.ms2wishlist_form [name="ms2wishlist_action"][value="add"],
+.ms2wishlist_form.active [name="ms2wishlist_action"][value="remove"] {
+    display: block;
+}
+
+.ms2wishlist_form [name="ms2wishlist_action"][value="remove"],
+.ms2wishlist_form.active [name="ms2wishlist_action"][value="add"] {
+    display: none;
+}
