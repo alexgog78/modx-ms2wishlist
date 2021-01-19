@@ -37,7 +37,7 @@ class ms2WishlistEventOnHandleRequest extends abstractModuleEvent
         if (empty($this->actionValue) || !$isAjax) {
             return;
         }
-        $response = $this->service->handler->handleRequest($this->actionValue, $this->requestData);
+        $response = $this->service->handleRequest($this->actionValue, $this->requestData);
         @session_write_close();
         exit($this->modx->toJSON($response));
     }

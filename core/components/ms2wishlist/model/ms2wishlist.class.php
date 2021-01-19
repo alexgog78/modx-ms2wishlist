@@ -2,8 +2,12 @@
 
 $this->loadClass('abstractModule', MODX_CORE_PATH . 'components/abstractmodule/model/', true, true);
 
+require_once dirname(__DIR__) . '/helpers/request.trait.php';
+
 class ms2Wishlist extends abstractModule
 {
+    use ms2WishlistHelperRequest;
+
     const PKG_VERSION = '1.1.0';
     const PKG_RELEASE = 'beta';
     const PKG_NAMESPACE = 'ms2wishlist';

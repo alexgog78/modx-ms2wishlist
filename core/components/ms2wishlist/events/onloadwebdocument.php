@@ -36,7 +36,7 @@ class ms2WishlistEventOnLoadWebDocument extends abstractModuleEvent
         if (empty($this->actionValue)) {
             return;
         }
-        $response = $this->service->handler->handleRequest($this->actionValue, $this->requestData);
+        $response = $this->service->handleRequest($this->actionValue, $this->requestData);
         $this->modx->setPlaceholder('request_status', $response['success']);
         $this->modx->setPlaceholder('request_message', $response['message']);
     }

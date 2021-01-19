@@ -33,46 +33,6 @@ class ms2WishlistHandler
     }
 
     /**
-     * @param string $action
-     * @param array $data
-     * @return array
-     */
-    public function handleRequest(string $action, $data = [])
-    {
-        switch ($action) {
-            case 'add':
-                $id = $data['record_id'];
-                $this->add($id);
-                $output = $this->success($this->modx->lexicon($this->service::PKG_NAMESPACE . '_scs_add'), [
-                    'id' => $id,
-                    'action' => 'add',
-                    'total' => $this->getTotal(),
-                ]);
-                break;
-            case 'remove':
-                $id = $data['record_id'];
-                $this->remove($id);
-                $output = $this->success($this->modx->lexicon($this->service::PKG_NAMESPACE . '_scs_remove'), [
-                    'id' => $id,
-                    'action' => 'remove',
-                    'total' => $this->getTotal(),
-                ]);
-                break;
-            case 'clear':
-                $this->clear();
-                $output = $this->success($this->modx->lexicon($this->service::PKG_NAMESPACE . '_scs_clear'), [
-                    'action' => 'clear',
-                    'total' => $this->getTotal(),
-                ]);
-                break;
-            default:
-                $output = $this->error($this->modx->lexicon($this->service::PKG_NAMESPACE . '_err_action_nf', ['action' => $action]));
-                break;
-        }
-        return $output ?? $this->error($this->modx->lexicon($this->service::PKG_NAMESPACE . '_err_response_format'));
-    }
-
-    /**
      * @param int $id
      * @return bool
      */
@@ -100,7 +60,7 @@ class ms2WishlistHandler
     /**
      * @param int $id
      */
-    private function add(int $id)
+    public function add(int $id)
     {
         $this->resources[$id] = $id;
     }
@@ -108,43 +68,13 @@ class ms2WishlistHandler
     /**
      * @param int $id
      */
-    private function remove(int $id)
+    public function remove(int $id)
     {
         unset($this->resources[$id]);
     }
 
-    private function clear()
+    public function clear()
     {
         $this->resources = [];
-    }
-
-    /**
-     * @param string $message
-     * @param array $data
-     * @return array
-     */
-    private function success($message = '', $data = [])
-    {
-        $output = [
-            'success' => true,
-            'message' => $message,
-            'data' => $data,
-        ];
-        return $output;
-    }
-
-    /**
-     * @param string $message
-     * @param array $data
-     * @return array
-     */
-    private function error($message = '', $data = [])
-    {
-        $output = [
-            'success' => false,
-            'message' => $message,
-            'data' => $data,
-        ];
-        return $output;
     }
 }

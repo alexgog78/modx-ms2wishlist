@@ -21,7 +21,8 @@ if (!$modx->loadClass('pdofetch', MODX_CORE_PATH . 'components/pdotools/model/pd
 $pdoFetch = new pdoFetch($modx, $scriptProperties);
 
 $resources = $ms2Wishlist->handler->get();
-if (empty($resources)) {
+$total = $ms2Wishlist->handler->getTotal();
+if (!$total) {
     return $pdoFetch->getChunk($emptyTpl);
 }
 
@@ -29,9 +30,6 @@ $scriptProperties = array_merge($scriptProperties, [
     'parents' => 0,
     'resources' => implode(',', $resources),
 ]);
-echo '<pre class="code">';
-print_r($scriptProperties);
-echo '</pre>';
-$modx->setPlaceholder('ms2wishlist_count', $ms2Wishlist->handler->getTotal());
+$modx->setPlaceholder('ms2wishlist_count', $total);
 $output = $pdoFetch->runSnippet($snippet, $scriptProperties);
 return $output;
