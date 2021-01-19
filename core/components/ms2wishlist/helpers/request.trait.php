@@ -49,12 +49,11 @@ trait ms2WishlistHelperRequest
      */
     private function success($message = '', $data = [])
     {
-        $output = [
+        return [
             'success' => true,
             'message' => $message,
             'data' => $data,
         ];
-        return $output;
     }
 
     /**
@@ -64,11 +63,10 @@ trait ms2WishlistHelperRequest
      */
     private function error($message = '', $data = [])
     {
-        $output = [
+        return [
             'success' => false,
             'message' => $message,
             'data' => $data,
         ];
-        return $output;
     }
 }

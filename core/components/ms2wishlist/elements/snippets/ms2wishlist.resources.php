@@ -31,5 +31,4 @@ $scriptProperties = array_merge($scriptProperties, [
     'resources' => implode(',', $resources),
 ]);
 $modx->setPlaceholder('ms2wishlist_count', $total);
-$output = $pdoFetch->runSnippet($snippet, $scriptProperties);
-return $output;
+return $pdoFetch->runSnippet($snippet, $scriptProperties);

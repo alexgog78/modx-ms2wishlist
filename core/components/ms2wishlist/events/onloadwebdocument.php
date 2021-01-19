@@ -14,9 +14,6 @@ class ms2WishlistEventOnLoadWebDocument extends abstractModuleEvent
     /** @var string */
     private $actionValue;
 
-    /** @var array */
-    private $requestData = [];
-
     /**
      * ms2WishlistEventOnLoadWebDocument constructor.
      *
@@ -28,7 +25,6 @@ class ms2WishlistEventOnLoadWebDocument extends abstractModuleEvent
         parent::__construct($service, $scriptProperties);
         $this->actionKey = $this->service::PKG_NAMESPACE . '_action';
         $this->actionValue = $_REQUEST[$this->actionKey];
-        $this->requestData = $_REQUEST;
     }
 
     public function run()
@@ -36,7 +32,7 @@ class ms2WishlistEventOnLoadWebDocument extends abstractModuleEvent
         if (empty($this->actionValue)) {
             return;
         }
-        $response = $this->service->handleRequest($this->actionValue, $this->requestData);
+        $response = $this->service->handleRequest($this->actionValue, $_REQUEST);
         $this->modx->setPlaceholder('request_status', $response['success']);
         $this->modx->setPlaceholder('request_message', $response['message']);
     }
