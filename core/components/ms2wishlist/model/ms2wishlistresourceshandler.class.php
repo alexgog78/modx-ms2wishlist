@@ -1,6 +1,6 @@
 <?php
 
-class ms2WishlistHandler
+class ms2WishlistResourcesHandler
 {
     /** @var ms2Wishlist */
     private $service;

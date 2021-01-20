@@ -12,27 +12,27 @@ trait ms2WishlistHelperRequest
         switch ($action) {
             case 'add':
                 $id = $data['record_id'];
-                $this->handler->add($id);
+                $this->resourcesHandler->add($id);
                 $output = $this->success($this->modx->lexicon($this::PKG_NAMESPACE . '_scs_add'), [
                     'id' => $id,
                     'action' => 'add',
-                    'total' => $this->handler->getTotal(),
+                    'total' => $this->resourcesHandler->getTotal(),
                 ]);
                 break;
             case 'remove':
                 $id = $data['record_id'];
-                $this->handler->remove($id);
+                $this->resourcesHandler->remove($id);
                 $output = $this->success($this->modx->lexicon($this::PKG_NAMESPACE . '_scs_remove'), [
                     'id' => $id,
                     'action' => 'remove',
-                    'total' => $this->handler->getTotal(),
+                    'total' => $this->resourcesHandler->getTotal(),
                 ]);
                 break;
             case 'clear':
-                $this->handler->clear();
+                $this->resourcesHandler->clear();
                 $output = $this->success($this->modx->lexicon($this::PKG_NAMESPACE . '_scs_clear'), [
                     'action' => 'clear',
-                    'total' => $this->handler->getTotal(),
+                    'total' => $this->resourcesHandler->getTotal(),
                 ]);
                 break;
             default:

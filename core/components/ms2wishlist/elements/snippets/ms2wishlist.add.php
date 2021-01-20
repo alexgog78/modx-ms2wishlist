@@ -21,7 +21,8 @@ if (!$modx->loadClass('pdofetch', MODX_CORE_PATH . 'components/pdotools/model/pd
 $pdoFetch = new pdoFetch($modx, $scriptProperties);
 
 $resourceId = $id ?? $modx->resource->id;
+$active = $ms2Wishlist->resourcesHandler->check($resourceId);
 return $pdoFetch->getChunk($tpl, [
     'id' => $resourceId,
-    'active' => $ms2Wishlist->handler->check($resourceId),
+    'active' => $active,
 ]);

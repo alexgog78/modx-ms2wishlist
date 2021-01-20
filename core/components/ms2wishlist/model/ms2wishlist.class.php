@@ -8,15 +8,18 @@ class ms2Wishlist extends abstractModule
 {
     use ms2WishlistHelperRequest;
 
-    const PKG_VERSION = '1.1.0';
+    const PKG_VERSION = '1.0.0';
     const PKG_RELEASE = 'beta';
     const PKG_NAMESPACE = 'ms2wishlist';
 
     /** @var array */
     public $session = [];
 
-    /** @var ms2WishlistHandler */
-    public $handler;
+    /** @var ms2WishlistResourcesHandler */
+    public $resourcesHandler;
+
+    /** @var bool */
+    protected $loadPackage = false;
 
     /**
      * ms2Wishlist constructor.
@@ -54,7 +57,7 @@ class ms2Wishlist extends abstractModule
         if ($contextKey == 'mgr') {
             return;
         }
-        $handlerClass = $this->modx->loadClass('ms2WishlistHandler', __DIR__ . '/', true, true);
-        $this->handler = new $handlerClass($this);
+        $handlerClass = $this->modx->loadClass('ms2WishlistResourcesHandler', __DIR__ . '/', true, true);
+        $this->resourcesHandler = new $handlerClass($this);
     }
 }

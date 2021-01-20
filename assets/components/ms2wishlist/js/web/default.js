@@ -72,7 +72,7 @@
                 this._form.removeClass(this.config.activeFormClass);
                 this.updateTotals(response.data.total);
                 $(this.config.resourceUniqueSelectorPrefix + response.data.id).remove();
-                this.message.success(response.message);
+                this.message.info(response.message);
                 if (response.data.total <= 0 && $(this.config.resourcesContainerSelector).length > 0) {
                     location.reload();
                 }
@@ -99,6 +99,9 @@
 
     ms2Wishlist.message = {
         success: function (message) {
+            alert(message);
+        },
+        info: function (message) {
             alert(message);
         },
         error: function (message) {

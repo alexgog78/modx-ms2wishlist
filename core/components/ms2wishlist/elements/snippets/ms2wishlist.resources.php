@@ -20,8 +20,8 @@ if (!$modx->loadClass('pdofetch', MODX_CORE_PATH . 'components/pdotools/model/pd
 }
 $pdoFetch = new pdoFetch($modx, $scriptProperties);
 
-$resources = $ms2Wishlist->handler->get();
-$total = $ms2Wishlist->handler->getTotal();
+$resources = $ms2Wishlist->resourcesHandler->get();
+$total = $ms2Wishlist->resourcesHandler->getTotal();
 if (!$total) {
     return $pdoFetch->getChunk($emptyTpl);
 }

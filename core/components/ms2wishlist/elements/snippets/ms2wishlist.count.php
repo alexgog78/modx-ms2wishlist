@@ -4,6 +4,7 @@
  * @var modX $modx
  * @var array $scriptProperties
  * @var string $tpl
+ * @var int $page
  */
 
 /** @var ms2Wishlist $ms2Wishlist */
@@ -19,6 +20,11 @@ if (!$modx->loadClass('pdofetch', MODX_CORE_PATH . 'components/pdotools/model/pd
 }
 $pdoFetch = new pdoFetch($modx, $scriptProperties);
 
+$total = $ms2Wishlist->resourcesHandler->getTotal();
+$link = $page ? $modx->makeUrl($page) : '#';
+
+$modx->setPlaceholder('ms2wishlist_count', $total);
 return $pdoFetch->getChunk($tpl, [
-    'total_count' => $ms2Wishlist->handler->getTotal(),
+    'total_count' => $total,
+    'link' => $link,
 ]);
