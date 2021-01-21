@@ -3,7 +3,7 @@
 return [
     [
         'name' => 'ms2Wishlist',
-        'static_file' => PKG_PATH . 'elements/plugins/ms2wishlist.php',
+        'static_file' => PKG_ELEMENTS_PATH . 'plugins/ms2wishlist.php',
         'events' => [
             'OnHandleRequest',
             'OnLoadWebDocument',

@@ -1,11 +1,11 @@
 <?php
 
-$settings = include __DIR__ . '/data/settings.php';
-foreach ($settings as $settingData) {
+$settings = include PKG_BUILD_DATA_PATH . 'settings.php';
+foreach ($settings as $data) {
     $setting = $modx->newObject('modSystemSetting');
     $setting->fromArray(array_merge([
         'namespace' => PKG_NAME_LOWER,
-    ], $settingData), '', true, true);
+    ], $data), '', true, true);
     $vehicle = $builder->createVehicle($setting, [
         xPDOTransport::PRESERVE_KEYS => true,
         xPDOTransport::UPDATE_OBJECT => false,

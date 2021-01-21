@@ -14,13 +14,15 @@ $builder = new modPackageBuilder($modx);
 $service = $modx->getService(PKG_NAME_LOWER, PKG_NAME, PKG_MODEL_PATH);
 
 /** Creating package */
-require_once __DIR__ . '/transport/package.inc.php';
+require_once PKG_BUILD_TRANSPORT_PATH . 'package.inc.php';
 
 /** Files */
-require_once __DIR__ . '/transport/files.inc.php';
+require_once PKG_BUILD_TRANSPORT_PATH . 'files.inc.php';
 
 /** modSystemSetting*/
-require_once __DIR__ . '/transport/settings.inc.php';
+require_once PKG_BUILD_TRANSPORT_PATH . 'settings.inc.php';
+
+require_once PKG_BUILD_TRANSPORT_PATH . 'elements.inc.php';
 
 /** Create .zip file */
 $builder->pack();
