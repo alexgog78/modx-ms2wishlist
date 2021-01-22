@@ -4,7 +4,9 @@
  * @var modX $modx
  * @var array $scriptProperties
  * @var string $snippet
- * @var string $emptyTpl
+ * @var string $tpl
+ * @var string $tplWrapper
+ * @var string $tplEmpty
  */
 
 /** @var ms2Wishlist $ms2Wishlist */
@@ -23,7 +25,7 @@ $pdoFetch = new pdoFetch($modx, $scriptProperties);
 $resources = $ms2Wishlist->resourcesHandler->get();
 $total = $ms2Wishlist->resourcesHandler->getTotal();
 if (!$total) {
-    return $pdoFetch->getChunk($emptyTpl);
+    return $pdoFetch->getChunk($tplEmpty);
 }
 
 $scriptProperties = array_merge($scriptProperties, [

@@ -1,3 +1,5 @@
+'use strict';
+
 (function (window, document, $, ms2WishlistConfig) {
     var ms2Wishlist = ms2Wishlist || {
         _form: null,
