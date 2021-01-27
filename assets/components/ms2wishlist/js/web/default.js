@@ -1,11 +1,13 @@
 'use strict';
 
-(function (window, document, $, ms2WishlistConfig) {
-    var ms2Wishlist = ms2Wishlist || {
-        _form: null,
-    };
+(function (window, document, $, ms2Wishlist) {
+    let _this = ms2Wishlist;
 
-    ms2Wishlist.config = {
+    $.extend(_this, {
+        _form: null,
+    });
+
+    _this.options = {
         formSelector: '.ms2wishlist_form',
         activeFormClass: 'active',
         totalSelector: '.ms2wishlist_link',
@@ -13,40 +15,38 @@
         totalCountSelector: '.ms2wishlist_count',
         resourcesContainerSelector: '.ms2wishlist_resources',
         resourceUniqueSelectorPrefix: '.ms2wishlist_resource_',
-        actionUrl: ms2WishlistConfig.actionUrl,
-        actionKey: ms2WishlistConfig.actionKey,
-    }
+    };
 
-    ms2Wishlist.initialize = function () {
-        $(document).on('submit', this.config.formSelector, function (e) {
+    _this.initialize = function () {
+        $(document).on('submit', this.options.formSelector, function (e) {
             e.preventDefault();
-            ms2Wishlist._form = $(this);
-            let formData = ms2Wishlist._form.serializeArray();
-            let action = ms2Wishlist._form.find('[name=' + ms2Wishlist.config.actionKey + ']:visible').val();
-            ms2Wishlist.request(action, formData);
+            _this._form = $(this);
+            let formData = _this._form.serializeArray();
+            let action = _this._form.find('[name=' + _this.actionKey + ']:visible').val();
+            _this.request(action, formData);
         });
     };
 
-    ms2Wishlist.request = function (action, data) {
+    _this.request = function (action, data) {
         data.push({
-            name: this.config.actionKey,
+            name: _this.actionKey,
             value: action
         });
         $.ajax({
-            url: this.actionUrl,
+            url: _this.actionUrl,
             type: 'POST',
             dataType: 'json',
             data: data,
             beforeSend: function () {
-                ms2Wishlist.callbacks[action]['before'].call(ms2Wishlist);
+                _this.callbacks[action]['before'].call(_this);
             },
             success: function (response) {
                 switch (response.success) {
                     case true:
-                        ms2Wishlist.callbacks[action]['success'].call(ms2Wishlist, response);
+                        _this.callbacks[action]['success'].call(_this, response);
                         break;
                     default:
-                        ms2Wishlist.callbacks[action]['error'].call(ms2Wishlist, response);
+                        _this.callbacks[action]['error'].call(_this, response);
                         break;
                 }
             },
@@ -57,25 +57,25 @@
         });
     };
 
-    ms2Wishlist.callbacks = {
+    _this.callbacks = {
         add: {
             before: function () {
             },
             success: function (response) {
-                this._form.addClass(this.config.activeFormClass);
-                this.updateTotals(response.data.total);
-                this.message.success(response.message);
+                _this._form.addClass(_this.options.activeFormClass);
+                _this.updateTotals(response.data.total);
+                _this.message.success(response.message);
             },
         },
         remove: {
             before: function () {
             },
             success: function (response) {
-                this._form.removeClass(this.config.activeFormClass);
-                this.updateTotals(response.data.total);
-                $(this.config.resourceUniqueSelectorPrefix + response.data.id).remove();
-                this.message.info(response.message);
-                if (response.data.total <= 0 && $(this.config.resourcesContainerSelector).length > 0) {
+                _this._form.removeClass(_this.options.activeFormClass);
+                _this.updateTotals(response.data.total);
+                $(_this.options.resourceUniqueSelectorPrefix + response.data.id).remove();
+                _this.message.info(response.message);
+                if (response.data.total <= 0 && $(_this.options.resourcesContainerSelector).length > 0) {
                     location.reload();
                 }
             },
@@ -90,16 +90,16 @@
         },
     };
 
-    ms2Wishlist.updateTotals = function (count) {
-        $(this.config.totalCountSelector).html(count);
+    _this.updateTotals = function (count) {
+        $(_this.options.totalCountSelector).html(count);
         if (count > 0) {
-            $(this.config.totalSelector).addClass(this.config.activeTotalClass);
+            $(_this.options.totalSelector).addClass(_this.options.activeTotalClass);
         } else {
-            $(this.config.totalSelector).removeClass(this.config.activeTotalClass);
+            $(_this.options.totalSelector).removeClass(_this.options.activeTotalClass);
         }
     };
 
-    ms2Wishlist.message = {
+    _this.message = {
         success: function (message) {
             alert(message);
         },
@@ -112,13 +112,13 @@
     };
 
     $(document).ready(function ($) {
-        ms2Wishlist.initialize();
-        var html = $('html');
+        _this.initialize();
+        let html = $('html');
         html.removeClass('no-js');
         if (!html.hasClass('js')) {
             html.addClass('js');
         }
     });
 
-    window.ms2Wishlist = ms2Wishlist;
-})(window, document, jQuery, ms2WishlistConfig);
+    window.ms2Wishlist = _this;
+})(window, document, jQuery, ms2Wishlist);
