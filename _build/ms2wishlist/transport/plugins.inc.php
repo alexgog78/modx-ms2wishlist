@@ -17,7 +17,9 @@ foreach ($plugins as $data) {
     $plugin->fromArray(array_merge([
         'id' => 0,
         'category' => 0,
-    ], $data), '', true, true);
+    ], $data, [
+        'static_file' => '',
+    ]), '', true, true);
 
     $events = [];
     if (!empty($data['events'])) {

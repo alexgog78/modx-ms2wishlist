@@ -45,7 +45,7 @@ if ($transport->xpdo) {
                     $item->save();
                 }
             }
-        break;
+            break;
         case xPDOTransport::ACTION_UNINSTALL:
             break;
     }

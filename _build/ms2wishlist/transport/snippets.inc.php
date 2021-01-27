@@ -17,7 +17,9 @@ foreach ($snippets as $data) {
     $snippet->fromArray(array_merge([
         'id' => 0,
         'category' => 0,
-    ], $data), '', true, true);
+    ], $data, [
+        'static_file' => '',
+    ]), '', true, true);
 
     $properties = [];
     $propertiesData = include PKG_TRANSPORT_PROPERTIES_PATH . 'snippet.' . $data['static_file'];

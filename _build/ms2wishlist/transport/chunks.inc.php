@@ -15,7 +15,9 @@ foreach ($chunks as $data) {
     $chunk->fromArray(array_merge([
         'id' => 0,
         'category' => 0,
-    ], $data), '', true, true);
+    ], $data, [
+        'static_file' => '',
+    ]), '', true, true);
 
     $vehicle = $builder->createVehicle($chunk, [
         xPDOTransport::PRESERVE_KEYS => false,

@@ -19,21 +19,22 @@ require_once PKG_TRANSPORT_PATH . 'package.inc.php';
 /** Files */
 require_once PKG_TRANSPORT_PATH . 'files.inc.php';
 
-/** modSystemSetting*/
+/** modSystemSetting */
 require_once PKG_TRANSPORT_PATH . 'settings.inc.php';
 
-/** modChunk*/
+/** modChunk */
 require_once PKG_TRANSPORT_PATH . 'chunks.inc.php';
 
-/** modSnippet*/
+/** modSnippet */
 require_once PKG_TRANSPORT_PATH . 'snippets.inc.php';
 
-/** modPlugin*/
+/** modPlugin */
 require_once PKG_TRANSPORT_PATH . 'plugins.inc.php';
 
-/** modCategory*/
+/** modCategory */
 require_once PKG_TRANSPORT_PATH . 'category.inc.php';
 
+/** Resolvers */
 require_once PKG_TRANSPORT_PATH . 'resolvers.inc.php';
 
 /** Create .zip file */
